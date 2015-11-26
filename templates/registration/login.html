@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    {% include 'template/head.html' %}
+    {% load staticfiles %}
+    <link href="{% static "signin.css" %}" type="text/css" rel="stylesheet">
+</head>
+<!-- HTML code from Bootply.com editor -->
+
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    {% include 'template/navigator.html' %}
+</div>
+
+<div class="container">
+
+    <form class="form-signin" method="post"
+          action="{% url 'django.contrib.auth.views.login' %}?next={{ request.path }}">
+
+        {% csrf_token %}
+        {% load widget_tweaks %}
+        <h2 class="form-signin-heading">請登入</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        {#        <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>#}
+        {% render_field form.username class+="form-control" placeholder="Email address" required="required" %}
+        <label for="inputPassword" class="sr-only">Password</label>
+        {#        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>#}
+        {% render_field form.password class+="form-control" placeholder="Password" required="required" %}
+
+        <input type="hidden" name="next" value="{{ next }}">
+
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> 記住我
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+
+</div>
+<!-- /.container -->
+
+<!-- scripts -->
+{% include 'template/scripts.html' %}
+<!-- /scripts -->
+
+<!-- JavaScript jQuery code from Bootply.com editor  -->
+<script type='text/javascript'>
+    $(document).ready(function () {
+
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    {% include 'template/head.html' %}
+</head>
+
+{% load comments %}
+{% load humanize %}
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    {% include 'template/navigator.html' %}
+</div>
+
+<hr class="hr1"/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 toppad">
+
+            {% include 'template/mbean_detail.html' %}
+
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 toppad">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">我要參加</h3>
+                </div>
+                <form method="post" action="">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class=" col-md-12 col-lg-12 ">
+
+                                {% csrf_token %}
+                                {% load widget_tweaks %}
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <label for="name">
+                                                訂購數量：<span style='color:red'>{{ order_error }} </span></label>
+                                            {#                            <input type="text" class="form-control" id="m_b_name" name="m_b_name" placeholder="盧安達..." required="required" />#}
+                                            {% render_field f.o_b_set class+="form-control" placeholder="0" required="required" %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">
+                                                聯絡電話：{{ f.o_p_phone.errors }}</label>
+                                            {#                            <input type="text" class="form-control" id="m_b_name" name="m_b_name" placeholder="盧安達..." required="required" />#}
+                                            {% render_field f.o_p_phone class+="form-control" placeholder="聯絡電話" required="required" %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">
+                                                寄送地址：{{ f.o_p_address.errors }}</label>
+                                            {#                            <input type="text" class="form-control" id="m_b_name" name="m_b_name" placeholder="盧安達..." required="required" />#}
+                                            {% render_field f.o_p_address class+="form-control" placeholder="寄送地址" required="required" %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">
+                                                備註：{{ f.o_b_set.errors }}</label>
+                                            {#                            <input type="text" class="form-control" id="m_b_name" name="m_b_name" placeholder="盧安達..." required="required" />#}
+                                            {% render_field f.o_b_remark class+="form-control" rows="4" placeholder="" %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary pull-right" id="btnContactUs">
+                                    我要團購
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+<hr class="hr1"/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert"> {% get_comment_count for mbean as comment_count %}
+                            <p> {{ comment_count }} 個留言</p></div>
+                        <ul data-brackets-id="12674" id="sortable" class="list-unstyled ui-sortable">
+
+                            <!-- show comment content -->
+                            {% get_comment_list for mbean as comment_list %}
+                            {% for comment in comment_list %}
+
+                                <strong class="pull-left primary-font">{{ comment.user_name }}</strong>
+                                <small class="pull-right text-muted">
+                                    <span class="glyphicon glyphicon-time"></span> {{ comment.submit_date | naturaltime }}, {{ comment.ip_address }}
+                                </small>
+                                </br>
+                                <li class="ui-state-default">{{ comment.comment }}</li>
+
+                                </br>
+                            {% endfor %}
+                            <!-- end show comments -->
+
+                        </ul>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+
+                            <!-- post comment -->
+
+                            {% get_comment_form for mbean as form %}
+
+                            <table>
+                                <form action="{% comment_form_target %}" method="post">
+                                    {% csrf_token %}
+                                    {% load widget_tweaks %}
+                                    <input type="hidden" name="next" value="{{ request.path }}"/>
+                                    {#      {{ form }}#}
+
+                                    <div class="form-group">
+                                        {% for field in form %}
+                                            {% if field.is_hidden %}
+                                                <div>{{ field }}</div>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <label for="name">
+                                            對這隻豆子的評論：</label>
+                                        {#                            <input type="text" class="form-control" id="m_b_name" name="m_b_name" placeholder="盧安達..." required="required" />#}
+                                        {% render_field form.comment class+="form-control" rows="4" cols="25" placeholder="說些什麼..." required="required" %}
+                                    </div>
+                                    <tr>
+                                        <div class="col-md-12">
+                                            <button type="submit" name="submit" class="btn btn-primary pull-right"
+                                                    value="Post">
+                                                確認傳送
+                                            </button>
+                                        </div>
+                                    </tr>
+                                </form>
+                            </table>
+                            <!-- end post comment -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- scripts -->
+{% include 'template/scripts.html' %}
+<!-- /scripts -->
+
+<!-- JavaScript jQuery code from Bootply.com editor  -->
+<script type='text/javascript'>
+    $(document).ready(function () {
+
+
+    });
+</script>
+{#<script>#}
+{#    (function (i, s, o, g, r, a, m) {#}
+{#        i['GoogleAnalyticsObject'] = r;#}
+{#        i[r] = i[r] || function () {#}
+{#            (i[r].q = i[r].q || []).push(arguments)#}
+{#        }, i[r].l = 1 * new Date();#}
+{#        a = s.createElement(o),#}
+{#                m = s.getElementsByTagName(o)[0];#}
+{#        a.async = 1;#}
+{#        a.src = g;#}
+{#        m.parentNode.insertBefore(a, m)#}
+{#    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');#}
+{#    ga('create', 'UA-40413119-1', 'bootply.com');#}
+{#    ga('send', 'pageview');#}
+{#</script>#}
+</body>
+
+</html>

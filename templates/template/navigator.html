@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Deal Bean 咖啡豆團購平台</a>
+    </div>
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/">首頁</a></li>
+            <li><a href="https://www.facebook.com/DealCoffeeDC">關於</a></li>
+            <li><a href="#contact">聯絡我們</a></li>
+        </ul>
+        {% if request.user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="">{{ request.user }} 您好</a></li>
+                <li><a href="/user/">主購/團購中</a></li>
+                <li><a href="/accounts/logout/">登出</a></li>
+            </ul>
+
+        {% else %}
+
+            <form class="navbar-form navbar-right" role="search" method="post" action="/login/">
+                {% csrf_token %}
+                <div class="form-group">
+                    {#                        <input type="text" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email">#}
+                    {#                        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password">#}
+                </div>
+                <a class="btn btn-success" href={% url 'django.contrib.auth.views.login' %}>登入</a>
+                <a class="btn btn-danger" href='/accounts/register/'>註冊</a>
+
+            </form>
+
+        {% endif %}
+    </div>
+    <!--/.nav-collapse -->
+</div>

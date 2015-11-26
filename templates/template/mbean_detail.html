@@ -1,0 +1,75 @@
+{% load humanize %}
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">咖啡資訊</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class=" col-md-10 col-lg-10 ">
+                <table class="table table-user-information">
+                    <tbody>
+
+                    <tr>
+                        <td>咖啡豆名稱：</td>
+                        <td>{{ mbean.m_b_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>單價（100克）：</td>
+                        <td>{{ mbean.m_b_unitprice | floatformat | intcomma }} 元</td>
+                    </tr>
+                    <tr>
+                        <td>運費：</td>
+                        <td>{{ mbean.m_b_shipping_fee | floatformat | intcomma }} 元</td>
+                    </tr>
+                    <tr>
+                        <td>最低訂購量：</td>
+                        <td>{{ mbean.m_b_minimum | floatformat | intcomma }} 克</td>
+                    </tr>
+                    <tr>
+                        <td>全部數量：</td>
+                        <td>{{ mbean.m_b_weight | floatformat | intcomma }} 克</td>
+                    </tr>
+                    <tr>
+                        <td>開團日期：</td>
+                        <td>{{ mbean.m_b_c_date|date:"Y/m/d" }}</td>
+                    </tr>
+                    <tr>
+                        <td>截止日期：</td>
+                        <td>{{ mbean.m_b_e_date|date:"Y/m/d" }}</td>
+                    </tr>
+                    <tr>
+                        <td>預定送達日期：</td>
+                        <td>{{ mbean.m_b_d_date|date:"Y/m/d" }}</td>
+                    </tr>
+                    <tr>
+                        <td>訂購人數/總人數：</td>
+                        <td>{{ customer | floatformat }}/{{ total | floatformat }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center"><img alt="User Pic"
+                                                                src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+                                                                class="img-circle img-responsive"></div>
+            <div class=" col-md-9 col-lg-9 ">
+                <table class="table table-user-information">
+                    <tbody>
+
+                    <tr>
+                        <td>主購姓名：</td>
+                        <td>{{ mbean.m_p_user }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email：</td>
+                        <td><a href="mailto:info@support.com">{{ mbean.m_p_user }}</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

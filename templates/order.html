@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    {% include 'template/head.html' %}
+    {% load staticfiles %}
+    <link href="{% static "datepicker.css" %}" rel="stylesheet" media="screen">
+</head>
+
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    {% include 'template/navigator.html' %}
+</div>
+
+<hr class="hr1"/>
+<div class="container">
+    <div class="row">
+
+        <div class="well well-sm">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% load widget_tweaks %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">
+                                咖啡豆名稱：{{ f.m_b_name.errors }}</label>
+                            {#                            <input type="text" class="form-control" id="m_b_name" name="m_b_name" placeholder="盧安達..." required="required" />#}
+                            {% render_field f.m_b_name class+="form-control" placeholder="盧安達.." required="required" %}
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="name">
+                                        單價（每 100 克）：{{ f.m_b_unitprice.errors }}</label>
+                                    {#                            <input type="text" class="form-control" id="m_b_unitprice" name="m_b_unitprice" placeholder="290" required="required" />#}
+                                    {% render_field f.m_b_unitprice class+="form-control" placeholder="290" required="required" %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="name">
+                                        運費：{{ f.m_b_shipping_fee.errors }}</label>
+                                    {#                            <input type="text" class="form-control" id="m_b_unitprice" name="m_b_unitprice" placeholder="290" required="required" />#}
+                                    {% render_field f.m_b_shipping_fee class+="form-control" placeholder="100" required="required" %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="row">
+                                <div class="col-md-4"><label for="name">
+                                    總數量（克）：{{ f.m_b_weight.errors }}</label>
+                                    {#                            <input type="text" class="form-control" id="m_b_weight" name="m_b_weight" placeholder="500" required="required" />#}
+                                    {% render_field f.m_b_weight class+="form-control target" placeholder="500" required="required" %}
+                                </div>
+                                <div class="col-md-4"><label for="name">
+                                    最低訂購量（克）：{{ f.m_b_minimum.errors }}</label>
+                                    {#                            <input type="text" class="form-control" id="m_b_minimum" name="m_b_minimum" placeholder="100" required="required" />#}
+                                    {% render_field f.m_b_minimum class+="form-control target" placeholder="100" required="required" %}
+                                </div>
+                                <div class="col-md-4"><label for="name">
+                                    可團購數量：</label>
+                                    <input type="text" class="form-control" id="m_b_count" name="m_b_count"
+                                           placeholder="5" required="required" readonly/>
+                                </div>
+                                <div class="col-md-12">
+                                    <h4>
+                                        <div class="label label-danger" role="alert">* 若數量有小數點則無條件捨去。</div>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">
+                                截止日期：{{ f.m_b_e_date.errors }}</label>
+                            {#                            <input type="text" class="form-control datepicker" id="m_b_e_date" name="m_b_e_date" placeholder="2015/05/07" required="required" />#}
+                            {% render_field f.m_b_e_date class+="form-control datepicker date" placeholder="2015/05/07" required="required" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="name">
+                                預定取貨日期：{{ f.m_b_d_date.errors }}</label>
+                            {#                            <input type="text" class="form-control datepicker" id="m_b_d_date" name="m_b_d_date" placeholder="2015/05/07" required="required" />#}
+                            {% render_field f.m_b_d_date class+="form-control datepicker date" placeholder="2015/05/07" required="required" %}
+                            <div class="alert alert-danger" id="date-alert">
+                                <button type="button" class="close" data-dismiss="alert">x</button>
+                                <strong>
+                                    截止日期不得大於預定送達日期</strong>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">
+                                聯絡電話：{{ f.m_p_phone.errors }}</label>
+                            {#                            <input type="text" class="form-control" id="m_p_phone" name="m_p_phone" placeholder="09..." required="required" />#}
+                            {% render_field f.m_p_phone class+="form-control" placeholder="09..." required="required" %}
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">
+                                備註：{{ f.m_b_remark.errors }}</label>
+                            {#                            <textarea name="m_b_remark" id="m_b_remark" class="form-control" rows="9" cols="25"#}
+                            {#                                placeholder="Message"></textarea>#}
+                            {% render_field f.m_b_remark class+="form-control" rows="9" %}
+                        </div>
+                        <div class="form-group">
+                            {% for e in err_msg %}
+                                <label for="name">
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary pull-right" id="btnContactUs">
+                            確認送出
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+<hr class="hr1"/>
+
+<!-- scripts -->
+{% include 'template/scripts.html' %}
+<script type="text/javascript" src="{% static 'bootstrap-datepicker.js' %}" charset="UTF-8"></script>
+<!-- /scripts -->
+
+<!-- JavaScript jQuery code from Bootply.com editor  -->
+<script type='text/javascript'>
+    $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd'
+    });
+
+
+    $(document).ready(function () {
+
+        $("#date-alert").hide();
+
+        $('.target').change(function () {
+            a = $('#id_m_b_minimum').val();
+            b = $('#id_m_b_weight').val();
+            if (!!a && !!b) {
+                $('#m_b_count').val(Math.floor(b / a));
+            }
+        });
+
+        $('.date').change(function () {
+            compare_date();
+        });
+
+    });
+
+    function compare_date() {
+        var beginDate = $("#id_m_b_e_date").val();
+        var endDate = $("#id_m_b_d_date").val();
+
+        if (typeof beginDate != "null" && typeof endDate != "null") {
+
+            var d1 = new Date(beginDate.replace(/\-/g, "\/"));
+            var d2 = new Date(endDate.replace(/\-/g, "\/"));
+
+            if (beginDate != "" && endDate != "" && d1 >= d2) {
+                $("#date-alert").alert();
+                $("#date-alert").fadeTo(2000, 500).slideUp(500, function () {
+                });
+                return false;
+            }
+        }
+    }
+</script>
+{#<script>#}
+{#    (function (i, s, o, g, r, a, m) {#}
+{#        i['GoogleAnalyticsObject'] = r;#}
+{#        i[r] = i[r] || function () {#}
+{#            (i[r].q = i[r].q || []).push(arguments)#}
+{#        }, i[r].l = 1 * new Date();#}
+{#        a = s.createElement(o),#}
+{#                m = s.getElementsByTagName(o)[0];#}
+{#        a.async = 1;#}
+{#        a.src = g;#}
+{#        m.parentNode.insertBefore(a, m)#}
+{#    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');#}
+{#    ga('create', 'UA-40413119-1', 'bootply.com');#}
+{#    ga('send', 'pageview');#}
+{#</script>#}
+</body>
+
+</html>

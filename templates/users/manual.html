@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    {% include 'template/head.html' %}
+</head>
+
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    {% include 'template/navigator.html' %}
+</div>
+
+<hr class="hr1"/>
+
+<div class="container">
+
+    <div class="panel panel-warning">
+        <!-- Default panel contents -->
+        <div class="panel-heading">我的主購</div>
+
+        <!-- Table -->
+        <div class="text-left">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>進行中團購</th>
+                    <th>單價（100克）</th>
+                    <th>人數</th>
+                    <th>時間</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for r in mbeans %}
+
+                    <tr class='clickable-row' data-href='/user/beandetail/{{ r.id }}'>
+                        <td>{{ r.m_b_name }}</td>
+                        <td align="">{{ r.m_b_unitprice }} 元</td>
+                        <td>{{ r.orders }}</td>
+                        <td>{{ r.m_b_c_date|date:"Y/m/d" }}</td>
+                    <td><a href="/mbean/delete/{{ r.id }}"><span class="alert-danger glyphicon glyphicon-remove"></span></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+<!-- /.container -->
+
+
+<hr class="hr1"/>
+
+<div class="container">
+
+    <div class="panel panel-info">
+        <!-- Default panel contents -->
+        <div class="panel-heading">我的團購</div>
+
+        <!-- Table -->
+        <div class="text-left">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>進行中團購</th>
+                    <th>單價（100克）</th>
+                    <th>人數</th>
+                    <th>時間</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for r in orders %}
+
+                    <tr class='clickable-row' data-href='/suborder/{{ r.id }}'>
+                        <td>{{ r.o_m_b.m_b_name }}</td>
+                        <td >{{ r.o_m_b.m_b_unitprice }} 元</td>
+                        <td>{{ r.o_m_b.orders }}</td>
+                        <td>{{ r.o_m_b.m_b_c_date|date:"Y/m/d" }}</td>
+                    <td><a href="/order/delete/{{ r.id }}"><span class="alert-danger glyphicon glyphicon-remove"></span></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+<!-- /.container -->
+
+<!-- scripts -->
+{% include 'template/scripts.html' %}
+<!-- /scripts -->
+
+<!-- JavaScript jQuery code from Bootply.com editor  -->
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+
+    });
+</script>
+{#<script>#}
+{#    (function (i, s, o, g, r, a, m) {#}
+{#        i['GoogleAnalyticsObject'] = r;#}
+{#        i[r] = i[r] || function () {#}
+{#            (i[r].q = i[r].q || []).push(arguments)#}
+{#        }, i[r].l = 1 * new Date();#}
+{#        a = s.createElement(o),#}
+{#                m = s.getElementsByTagName(o)[0];#}
+{#        a.async = 1;#}
+{#        a.src = g;#}
+{#        m.parentNode.insertBefore(a, m)#}
+{#    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');#}
+{#    ga('create', 'UA-40413119-1', 'bootply.com');#}
+{#    ga('send', 'pageview');#}
+{#</script>#}
+</body>
+
+</html>
