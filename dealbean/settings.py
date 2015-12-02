@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#runserver_plus definition: http://django-extensions.readthedocs.org/en/latest/runserver_plus.html
+RUNSERVERPLUS_SERVER_ADDRESS_PORT = '127.0.0.1:443'
+RUNSERVERPLUS_POLLER_RELOADER_INTERVAL = 5
 
 # Application definition
 
@@ -45,6 +48,7 @@ INSTALLED_APPS = (
     'bsmain',
 
     # customize
+    'django_extensions', # django_extensions: https://github.com/django-extensions/django-extensions
     'widget_tweaks', # for customize <input
     'django.contrib.sites', # use for allauth
     'allauth',

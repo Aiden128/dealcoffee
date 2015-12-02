@@ -1,1 +1,0 @@
-gunicorn --pythonpath dealbean dealbean.wsgi
