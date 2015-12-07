@@ -22,7 +22,7 @@ urlpatterns = patterns('',
 
                        url(r'^accounts/login/$', login),
                        url(r'^accounts/logout/$', logout, {'next_page': '/'}),
-                       url(r'^accounts/register/$', bsmain.views.register),
+                       url(r'^accounts/register/$', bsmain.views.register), #point to bsmain/views.py register function
 
                        # url(r'^accounts/', include('allauth.urls')),
 

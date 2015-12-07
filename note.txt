@@ -1,0 +1,7 @@
+manage.py: execute project
+-dealbean
+--settings.py: project configs and modules definitions
+--urls.py: request url definitions
+-bsmain
+--views.py: views event handlers
+-templates: ui templates
