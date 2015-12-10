@@ -23,7 +23,7 @@ class OrderForm(forms.Form):
     o_p_address = forms.CharField(max_length=100)
 
 
-class UserCreateForm(UserCreationForm):
+class UserCreateForm(UserCreationForm): #register form, call by views.py:register
     email = forms.EmailField(required=True)
     captcha = ReCaptchaField()
 

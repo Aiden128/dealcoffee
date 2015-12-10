@@ -1,11 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from rest_framework import routers
-from bsmain import views
+from django.contrib.auth.views import login, logout
 
 import bsmain.views
-from django.contrib.auth.views import login, logout
-import allauth
 
 # admin.autodiscover()
 #
@@ -20,9 +17,10 @@ urlpatterns = patterns('',
 
                        # url(r'^accounts/', include('allauth.urls')),
 
+                       url(r'^hello/$', bsmain.views.home),
                        url(r'^accounts/login/$', login),
                        url(r'^accounts/logout/$', logout, {'next_page': '/'}),
-                       url(r'^accounts/register/$', bsmain.views.register), #point to bsmain/views.py register function
+                       url(r'^accounts/register/$', bsmain.views.register),  # point to bsmain/views.py register function
 
                        # url(r'^accounts/', include('allauth.urls')),
 
@@ -31,7 +29,6 @@ urlpatterns = patterns('',
                        # url(r'^', include(router.urls)),
                        url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
                        url(r'^comments/', include('django_comments.urls')),
-
 
                        url(r'^$', bsmain.views.get_bean_list),
                        url(r'^mbean/delete/(\d{1,10})/$', bsmain.views.delete_mbean),
@@ -46,4 +43,3 @@ urlpatterns = patterns('',
                        url(r'^test/$', bsmain.views.test),
 
                        )
-
