@@ -41,5 +41,5 @@ urlpatterns = patterns('',
                        url(r'^user/beandetail/(\d{1,10})/$', bsmain.views.show_detailbean),
 
                        url(r'^test/$', bsmain.views.test),
-
+                       url(r'^testFirebase/$', bsmain.views.testFirebase),
                        )

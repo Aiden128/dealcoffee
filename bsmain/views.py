@@ -5,6 +5,7 @@
 # bsmain/views.py
 
 
+import firebase
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -210,4 +211,11 @@ def delete_order(request, id):
 
 def test(request):
     messages.error(request, "Error")
+    return render_to_response('test.html', RequestContext(request, locals()))
+
+
+def testFirebase(request):
+    firebaseApp = firebase.FirebaseApplication('https://dealcoffee.firebaseio.com', None)
+    result = firebaseApp.get('/test', None)
+    print result
     return render_to_response('test.html', RequestContext(request, locals()))
